@@ -9,8 +9,8 @@ def buyMovingAverage(stockSymbols, date, longMA, shortMA):
     buyStatus = {}
     for stockSymbol in stockSymbols:
         stockData = readData(stockSymbol, date)
-        longMean = np.mean(stockData["open"][-longMA:])
-        shortMean = np.mean(stockData["open"][-shortMA:])
+        longMean = np.mean(stockData["close"][:longMA])
+        shortMean = np.mean(stockData["close"][:shortMA])
         buy = shortMean > longMean
         buyStatus[stockSymbol] = buy
     return buyStatus
@@ -23,10 +23,10 @@ def main():
     #arr = np.arange(0,20)
     #print("range", arr)
     #data["open"] = arr
-    for day in data["open"]:
+    for day in data["close"]:
       #print(index)
       if(index >= longMA):
-          buy.append(buyMovingAverage(data["open"][index-longMA:index], longMA, shortMA))
+          buy.append(buyMovingAverage(data["close"][index-longMA:index], longMA, shortMA))
           #print(data["open"][index-longMA:index])
           #print(buy)
       else:
