@@ -39,7 +39,7 @@ def readData(symbol, dataToStr, dataFromStr="1900-01-01"):
     return parsedData
 
 def main():
-    data = readData("test", "2022-01-19", dataFromStr="2022-01-13")
+    data = readData("IBM", "2021-05-10", dataFromStr="2021-05-06")
     print(data)
 
 if __name__ == "__main__":
