@@ -1,6 +1,8 @@
 extern crate serde;
 extern crate serde_json;
 
+mod plotting_tools;
+
 use std::collections::BTreeMap;
 
 use serde::Deserialize;
@@ -62,7 +64,10 @@ fn print_stock_data(stock_data: StockData) {
 
 fn main() {
     println!("Grodan och paddan");
-    let file_name: &str = "C:/Users/Rodri/Projects/moneyMaker/data/SPY.json";
+    let file_name: &str = "../data/lilSPY.json";
     let stock_data = get_stock_data_from_json(file_name).expect("Couldn't get data from json file");
     print_stock_data(stock_data);
+    let x_values: Vec<f64> = vec![1.0, 2.0, 3.0, 4.0, 5.0];
+    let y_values: Vec<f64> = vec![2.0, 4.0, 3.0, 1.0, 5.0];
+    plotting_tools::plot_stock(x_values,y_values);
 }
