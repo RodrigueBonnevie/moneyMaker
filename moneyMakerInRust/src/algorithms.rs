@@ -1,8 +1,19 @@
+use crate::moving_average::MovingAverage;
 use crate::parse_json::StockData;
 
-pub fn moving_average(long_avg: u32, short_avg: u32, stock_data: &StockData) {
+pub fn groda(long_avg: u32, short_avg: u32, stock_data: &StockData) {
     println!(
         "{} , {} , {}",
         long_avg, short_avg, stock_data.meta_data.symbol
+    );
+    let moving_average = MovingAverage::new(5.0);
+    moving_average.update(5.0, 0.0);
+    moving_average.update(5.0, 0.0);
+    moving_average.update(5.0, 0.0);
+    moving_average.update(5.0, 0.0);
+    moving_average.update(5.0, 0.0);
+    println!(
+        "Current moving average: {}",
+        moving_average.get_moving_average()
     );
 }

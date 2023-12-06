@@ -2,9 +2,9 @@ extern crate serde;
 extern crate serde_json;
 
 mod algorithms;
+mod moving_average;
 mod parse_json;
 mod plotting_tools;
-mod types;
 
 fn main() {
     println!("Grodan och paddan");
@@ -15,5 +15,5 @@ fn main() {
     let x_values: Vec<f64> = vec![1.0, 2.0, 3.0, 4.0, 5.0];
     let y_values: Vec<f64> = vec![2.0, 4.0, 3.0, 1.0, 5.0];
     plotting_tools::plot_stock(x_values, y_values);
-    algorithms::moving_average(10, 5, &stock_data)
+    algorithms::groda(10, 5, &stock_data)
 }
