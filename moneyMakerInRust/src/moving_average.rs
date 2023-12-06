@@ -1,8 +1,10 @@
-#[derive(Clone, Copy)]
+extern crate queues;
+use queues::*;
+
 pub struct MovingAverage {
     sample_length: f64,
     pub current_average: f64,
-    points_calculated: u32,
+    processed_values: Queue<f64>,
 }
 
 impl MovingAverage {
@@ -10,17 +12,20 @@ impl MovingAverage {
         MovingAverage {
             sample_length: (sample_length),
             current_average: (0.0),
-            points_calculated: 0,
+            processed_values: queue![],
         }
     }
 
-    pub fn update(&mut self, new_sample: f64, popped_sample: f64) {
+    pub fn update(&mut self, new_sample: f64) {
+        self.processed_values.add(new_sample).expect("couldn't add value");
         self.current_average += new_sample / self.sample_length;
-        self.current_average -= popped_sample / self.sample_length;
-        self.points_calculated += 1;
+        if self.processed_values.size() > self.sample_length as usize{
+           let outgoing_value = self.processed_values.remove().expect("queue empty");
+            self.current_average -= outgoing_value / self.sample_length;
+        }
     }
 
-    pub fn get_moving_average(self) -> f64 {
-        self.current_average.clone()
+    pub fn get_moving_average(&self) -> f64 {
+        self.current_average 
     }
 }
