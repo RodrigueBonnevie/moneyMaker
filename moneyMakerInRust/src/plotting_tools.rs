@@ -32,3 +32,26 @@ pub fn plot_stock(file_name: &str, x_values: Vec<f64>, y_values: Vec<f64>) {
     plot.add_trace(trace);
     plot.write_html(format!("{}.html", file_name));
 }
+
+pub fn plot_buy_signal(
+    file_name: &str,
+    stock_price: (Vec<f64>, Vec<f64>),
+    buy_days: (Vec<f64>, Vec<f64>),
+) {
+    let trace_price = Scatter::new(stock_price.0.clone(), stock_price.1.clone())
+        .mode(Mode::Lines)
+        .name("Stock price")
+        .line(
+            plotly::common::Line::new()
+                .color(NamedColor::Black)
+                .width(1 as f64),
+        );
+    let trace_buy = Scatter::new(buy_days.0.clone(), buy_days.1.clone())
+        .mode(Mode::Markers)
+        .name("Buying days");
+
+    let mut plot = Plot::new();
+    plot.add_trace(trace_price);
+    plot.add_trace(trace_buy);
+    plot.write_html(format!("{}.html", file_name));
+}
