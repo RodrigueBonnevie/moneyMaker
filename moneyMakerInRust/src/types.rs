@@ -2,6 +2,14 @@ use serde::Deserialize;
 use std::collections::BTreeMap;
 
 #[derive(Deserialize)]
+pub struct StockData {
+    #[serde(rename = "Meta Data")]
+    pub meta_data: StockMetaData,
+    #[serde(rename = "Time Series (Daily)")]
+    pub time_series: BTreeMap<String, TimeSeries>,
+}
+
+#[derive(Deserialize)]
 pub struct StockMetaData {
     #[serde(rename = "1. Information")]
     pub information: String,
@@ -27,12 +35,4 @@ pub struct TimeSeries {
     pub close: String,
     #[serde(rename = "5. volume")]
     pub volume: String,
-}
-
-#[derive(Deserialize)]
-pub struct StockData {
-    #[serde(rename = "Meta Data")]
-    pub meta_data: StockMetaData,
-    #[serde(rename = "Time Series (Daily)")]
-    pub time_series: BTreeMap<String, TimeSeries>,
 }
